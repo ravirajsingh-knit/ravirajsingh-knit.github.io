@@ -1,0 +1,13 @@
+<div class="container">
+    <div ng-show="cart.length==0">
+        CART IS EMPTY;
+    </div>
+    <div ng-hide="cart.length==0">
+        <div ng-repeat="item in cart">
+            <cart-view details="item"></cart-view>
+        </div>
+        <h2>TOTAL AMOUNT : {{totalAmount}}</h2>
+
+        <a class="btn btn-secondary btn-block" ng-href="#user">CHECKOUT @  {{totalAmount}} RS</a>
+    </div>
+</div>

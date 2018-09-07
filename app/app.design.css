@@ -1,0 +1,16 @@
+.badge-notify{
+    background:black;
+    position:relative;
+    top: -20px;
+    left: -20px;
+ }
+ .navbar {
+    min-height: 80px;
+  }
+li {
+    margin:20px 20px 20px 20px;   
+ }
+
+ .lg-dropdown-option{
+    width:300px;   
+  }

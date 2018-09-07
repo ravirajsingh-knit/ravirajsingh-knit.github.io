@@ -1,0 +1,30 @@
+<div class="container-fluid py-3">
+    <div class="card">
+        {{ctrl.type}}
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <img ng-src={{"/product/directive/images/"+details.image}} height="200px" class=" rounded float-left img-fluid">
+            </div>    
+        
+        <div class="col-sm-9 col-xs-9 col-md-9">
+            <div class="card-body">
+                <div class="card-block">
+                    <h4 class="card-title">{{details.name}}</h4>
+                    <p class="card-text">Category: {{details.category}}</p>
+                    <p class="card-text">Price : {{details.cost}}</p>
+                    <p class="card-text">{{details.property}}</p>
+                    <p class="card-text">Rating :{{details.rating}}</p>
+                   
+                    <label>Quantity</label>
+                    <select ng-init="quantity=0"ng-model="quantity">
+                            <option value="1" active>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                    </select>
+                    <a  class="btn btn-primary" ng-click="addToCart(details.id,quantity)">ADD TO CART</a> <h5 ng-hide="showMessage">Product Added To Cart</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

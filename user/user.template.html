@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+     
+            <form class="form-horizontal mx-auto" ng-submit="$ctrl.login()">
+                <div class="form-group">
+                <label for="userid" class="col-sm-3 control-label"> UserId</label>
+                <input id="userid" type="text" name="userid" class="col-sm-9 form-control" ng-model="$ctrl.userId">
+                </div>
+                <div class="form-group" >
+                        <label for="" class="col-sm-3  control-label"> Password</label>
+                        <input id="password" name="password" class="col-sm-9 form-control" ng-model="$ctrl.password">
+                </div>
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </form>    
+        
+    </div>
+    <hr />
+    <div class="mx-auto">
+            <a class="btn btn-primary btn-lg " >CONTINUE AS GUEST</a>
+    </div>
+    
+</div>

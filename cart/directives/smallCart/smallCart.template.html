@@ -1,0 +1,37 @@
+<div class="dropdown">
+        <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="$rootScope.updateCart()">
+            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true">
+                <span class="badge badge-notify badge-pill badge-dark" >{{Cart.length}}</span>
+            </i>
+        </a>
+        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+        <span class="dropdown-item lg-dropdown-option">Total Items:{{Cart.length}}</span>
+        <div class="scrollable-menu">
+        <div ng-repeat="item in Cart">        
+        <a class="dropdown-item lg-dropdown-option" href="#" >
+            <!-- <small-cart details="item"></small-cart> -->
+            
+            <div class="row">
+                <div class="col-xs-2">
+                    <img ng-src={{"/product/directive/images/"+item.image}} >
+                </div>
+                <div class="col-xs-10">
+                    <h5>NAME:{{item.name}}</h5>
+                    <p>Quantity:{{item.quantity}}    Cost:{{item.cost}}</p>
+                    <p>Total Amount :{{item.quantity*item.cost}}</p>
+                </div>        
+            </div>
+
+
+
+
+        
+        </a>
+        </div>
+        </div>
+        <a class="dropdown-item lg-dropdown-option" href="#">Total Amount :{{totalAmount}}</a>
+        <a class="dropdown-item lg-dropdown-option" ng-href="#checkout">CHECKOUT</a>
+        </div>
+</div>
+
+
