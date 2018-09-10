@@ -1,6 +1,6 @@
 angular.module("cart").component("cartDisplay",{
     templateUrl:"cart/cart.template.html",
-    controller:['DataFactory','$rootScope','$scope',function(DataFactory,$rootScope,$scope){
+    controller:['DataFactory','AuthenticationService','$location','$rootScope','$scope',function(DataFactory,AuthenticationService,$location,$rootScope,$scope){
         $scope.cart=DataFactory.getCart();
         $scope.totalAmount=0;
         var getTotalAmount=function(){
@@ -10,6 +10,13 @@ angular.module("cart").component("cartDisplay",{
         }
         getTotalAmount();
         
+        $scope.onCheckOut=function(){
+            console.log(AuthenticationService.getCurrentUser());
+            if(AuthenticationService.getCurrentUser()=="Guest")
+                $location.path('/user');
+            else
+                $location.path('/');
+        }
         
         console.log("from cart component",$scope.cart);
             $rootScope.$on("ChangeinCart",function(){

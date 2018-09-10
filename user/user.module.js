@@ -1,3 +1,4 @@
 angular.module("user",[
-  "app"  
+  "app",
+  'ngCookies'  
 ]);

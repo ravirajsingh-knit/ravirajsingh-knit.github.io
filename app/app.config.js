@@ -13,6 +13,9 @@ angular.module("app").config(function($locationProvider,$routeProvider){
                 .when("/user",{
                     template:"<user-display></user-display>",
                 })
+                .when("/userdetails",{
+                    template:"<user-detail></user-detail>",
+                })
                 .otherwise('/');
             
     

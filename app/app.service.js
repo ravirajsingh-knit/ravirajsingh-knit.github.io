@@ -1,4 +1,4 @@
-angular.module("app").service('DataFactory',['$rootScope',function($rootScope){
+angular.module("app").service('DataFactory',['$rootScope','UserService',function($rootScope,UserService){
 
     var allProducts=[{
         "id":"7804493863",
@@ -294,6 +294,10 @@ angular.module("app").service('DataFactory',['$rootScope',function($rootScope){
         //console.log(cart);
         $rootScope.$emit("ChangeinCart");
     }
+    this.getRefCart=function(){
+        return cart;
+    }
+
     this.getCart=function(){
         var cartItems=[];
         for(var i=0;i<cart.length;i++){
@@ -325,8 +329,29 @@ angular.module("app").service('DataFactory',['$rootScope',function($rootScope){
             }
         }
         console.log("service remove command");
+        UserService.updateCart(cart);
         $rootScope.$emit("ChangeinCart");
 
+    }
+    this.mergeCart=function(userCart){
+        for(var i=0;i<userCart.length;i++){
+            var flag=true;
+            for(var j=0;j<cart.length;j++){
+                if(userCart[i].id==cart[j].id){
+                    cart[j].quantity=Math.min(userCart[i].quantity+cart[j].quantity,3);
+                    flag=false;
+                }
+            }
+            if(flag)
+                cart.push(userCart[i]);
+            
+        }
+        UserService.updateCart(cart);
+        $rootScope.$emit("ChangeinCart");
+    }
+    this.cleanCart=function(){
+        cart=[];
+        $rootScope.$emit("ChangeinCart");
     }
 
     this.updateCart=function(id,quantity){
@@ -337,11 +362,9 @@ angular.module("app").service('DataFactory',['$rootScope',function($rootScope){
             }
         }
         console.log("service update command");
+        UserService.updateCart(cart);
         $rootScope.$emit("ChangeinCart");
     }
-    var userList=[];
-    this.makeDumyUser=function(userId,password){
-    
-    }
+   
 
 }]);
