@@ -1,9 +1,18 @@
 <div class="row">
     <div class="col-sm-2">
         <!-- Category Selection -->
-        <label >Select Category</label>
-        
-             
+        <h4>Select Category</h4>
+        <div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="checkedElectronic" value="Electronic">Electronic</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="checkedBooks" value="Books">Books</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="checkedWear" value="Wear">Wear</label>
+            </div>
+        </div>     
     </div>
     <div class="col-sm-10">
         <div ng-repeat="product in $ctrl.products">
