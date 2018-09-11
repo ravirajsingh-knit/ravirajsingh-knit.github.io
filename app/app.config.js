@@ -21,8 +21,8 @@ angular.module("app").config(function($locationProvider,$routeProvider){
                 })
                 .when("/myorder",{
                     template:"<my-order></my-order>",
-                })
-                .otherwise('/');
+                });
+                // .otherwise('/');
             
     
 });

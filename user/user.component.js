@@ -24,7 +24,10 @@ angular.module("user").component("userDisplay",{
         AuthenticationService.ClearCredentials();
     }
 
-
+    $scope.doGuest=function(){
+        console.log("guestst  s");
+        $location.path("/payment");
+    }
     this.login=function() {
         this.dataLoading = true;
         console.log(this.username, this.password);

@@ -282,7 +282,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
         for(var i=0;i<cart.length;i++){
             if(id==cart[i].id){
                 b=false;
-                cart[i].quantity=Math.min(cart[i].quantity+quantity,3).toString();  
+                cart[i].quantity=Math.min(cart[i].quantity+quantity,3);  
             }    
         }
         if(b){
@@ -311,8 +311,9 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
                     item.image=allProducts[j].image;
                     item.cost=allProducts[j].cost;
                     item.name=allProducts[j].name;
-                    item.quantity=cart[i].quantity;
+                    item.quantity=cart[i].quantity.toString();
                     cartItems.push(item);
+                    break;
                 }
             }
         }
@@ -349,6 +350,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
         UserService.updateCart(cart);
         $rootScope.$emit("ChangeinCart");
     }
+
     this.cleanCart=function(){
         cart=[];
         $rootScope.$emit("ChangeinCart");
@@ -357,7 +359,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
     this.updateCart=function(id,quantity){
         for(var i=0;i<cart.length;i++){
             if(cart[i].id==id){
-                cart[i].quantity=Math.min(3,quantity).toString();
+                cart[i].quantity=Math.min(3,quantity);
                 break;
             }
         }

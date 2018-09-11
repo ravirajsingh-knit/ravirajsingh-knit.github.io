@@ -46,6 +46,9 @@ angular.module('user')
             }
             
             
+            this.cleanCart=function(){
+                UserService.cleanCart($rootScope.globals.currentUser.username);
+            }
 
             this.ClearCredentials=function ClearCredentials() {
                 $rootScope.globals = {};

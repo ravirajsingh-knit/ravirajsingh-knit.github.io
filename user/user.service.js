@@ -65,6 +65,13 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
         return true;
         
     }
+    this.cleanCart=function(user){
+        for(var i=0;i<users.length;i++)
+            if(users[i].username==user)
+                users[i].cart=[];
+
+
+    }
     this.updateCart=function(cart){
         if($rootScope.globals==undefined||$rootScope.globals.currentUser==undefined||$rootScope.globals.currentUser.username==undefined)
             return;

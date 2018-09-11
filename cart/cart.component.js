@@ -1,7 +1,7 @@
 angular.module("cart").component("cartDisplay",{
     templateUrl:"cart/cart.template.html",
     controller:['DataFactory','AuthenticationService','UserService','$location','$rootScope','$scope',function(DataFactory,AuthenticationService,UserService,$location,$rootScope,$scope){
-        $scope.cart=DataFactory.getCart();
+        $scope.cart=angular.copy(DataFactory.getCart());
         $scope.totalAmount=0;
         var getTotalAmount=function(){
             $scope.totalAmount=0;
