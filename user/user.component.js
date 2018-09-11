@@ -25,7 +25,6 @@ angular.module("user").component("userDisplay",{
     }
 
     $scope.doGuest=function(){
-        console.log("guestst  s");
         $location.path("/payment");
     }
     this.login=function() {

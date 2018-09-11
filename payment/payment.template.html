@@ -2,7 +2,7 @@
 
    
     <div class="btn-group"  >
-            <a  class="btn btn-default" ng-click="changeMode(1)"><h5>User Information</h5></a>
+            <a  class="btn btn-default" ng-click="changeMode(4)"><h5>User Information</h5></a>
             <a  class="btn btn-derfault" ng-click="changeMode(2)"><h5>Cart Infformation</h5></a>
             <a  class="btn btn-drfault" ng-click="changeMode(3)"><h5>Final Payment</h5></a>
     </div>
@@ -11,9 +11,11 @@
     <div  ng-show="mode==1||mode==4">
         <div ng-show="mode==1">
         <user-detail></user-detail>
+        <a  class="btn btn-derfault" ng-click="changeMode(2)"><h5>NEXT</h5></a>
         </div>
         <div ng-show="mode==4">
             <form>
+                <p>Please Complete The Form</p>
                 <div class="form-group row">
                         <label for="firstName" class="col-sm-2 col-form-label">FIRST NAME</label>
                         <div class="col-sm-10">
@@ -53,12 +55,10 @@
                               <input type="text" class="form-control" id="address" ng-model="userDetail.address" >
                             </div>
                     </div>
+                    <a type="submit" class="bt btn-primary" ng-click="onSubmit(userDetail)">Submit</a>
                 </form>
 
          </div>   
-        
-        <a  class="btn btn-derfault" ng-click="changeMode(2)"><h5>NEXT</h5></a>
-
 
     </div>
     <div   ng-show="mode==2"  >
