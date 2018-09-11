@@ -1,7 +1,7 @@
 angular.module('user')
         .service('AuthenticationService',['$http', '$cookies', '$rootScope', 'UserService','DataFactory',function($http, $cookies, $rootScope,UserService,DataFactory ){
           
-
+            
             this.getCurrentUser=function(){
                 if($rootScope.globals==undefined||$rootScope.globals.currentUser==undefined||$rootScope.globals.currentUser.username==undefined)
                     return "Guest";

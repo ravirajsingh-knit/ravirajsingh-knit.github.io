@@ -33,6 +33,21 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
             }
             return false;
     }
+    this.checkProfile=function(username){
+        console.log("function called1");
+        for(var i=0;i<users.length;i++){
+            console.log("function called2");
+            if(users[i].username==username){
+                console.log("function called");
+                console.log(users[i].mobile,users[i].address,users[i].cardDetails.cardNumber,users[i].cardDetails.expDate);
+                if(users[i].mobile==""||users[i].address==""||users[i].cardDetails.cardNumber==""||users[i].cardDetails.expDate=="")
+                    return false;
+            }
+
+        }
+
+        return true;
+    }
     this.Create=function(user,cart) {
         console.log(user);
         for(var i=0;i<users.length;i++)

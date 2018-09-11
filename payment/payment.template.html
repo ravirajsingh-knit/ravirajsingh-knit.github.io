@@ -1,0 +1,26 @@
+<div class="container">
+
+   
+    <div class="btn-group"  >
+            <a  class="btn btn-default" ng-click="changeMode(1)"><h5>User Information</h5></a>
+            <a  class="btn btn-derfault" ng-click="changeMode(2)"><h5>Cart Infformation</h5></a>
+            <a  class="btn btn-drfault" ng-click="changeMode(3)"><h5>Final Payment</h5></a>
+    </div>
+    
+
+    <div  ng-show="mode==1">
+        <user-detail></user-detail>
+        <a  class="btn btn-derfault" ng-click="changeMode(2)"><h5>NEXT</h5></a>
+    </div>
+    <div   ng-show="mode==2"  >
+        <div ng-repeat="item in getUserCart">
+                <cart-view details="item"></cart-view>
+                
+        </div>
+            <h2>TOTAL AMOUNT : {{totalAmount}}</h2>
+            <a  class="btn btn-derfault" ng-click="changeMode(3)"><h5>NEXT</h5></a>
+    </div>
+    <div   ng-show="mode==3" >
+        <a class ="btn btn-primary" ng-click="placeOrder()">PLACE ORDER</a>
+    </div>
+</div>      

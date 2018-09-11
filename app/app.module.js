@@ -3,6 +3,7 @@ angular.module("app",[
     "ngAnimate",
     "product",
     "cart",
-    "user"
+    "user",
+    "payment"
 
 ]);

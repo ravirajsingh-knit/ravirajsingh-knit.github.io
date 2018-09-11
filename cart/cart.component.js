@@ -1,6 +1,6 @@
 angular.module("cart").component("cartDisplay",{
     templateUrl:"cart/cart.template.html",
-    controller:['DataFactory','AuthenticationService','$location','$rootScope','$scope',function(DataFactory,AuthenticationService,$location,$rootScope,$scope){
+    controller:['DataFactory','AuthenticationService','UserService','$location','$rootScope','$scope',function(DataFactory,AuthenticationService,UserService,$location,$rootScope,$scope){
         $scope.cart=DataFactory.getCart();
         $scope.totalAmount=0;
         var getTotalAmount=function(){
@@ -14,8 +14,14 @@ angular.module("cart").component("cartDisplay",{
             console.log(AuthenticationService.getCurrentUser());
             if(AuthenticationService.getCurrentUser()=="Guest")
                 $location.path('/user');
-            else
-                $location.path('/');
+            else if(UserService.checkProfile(AuthenticationService.getCurrentUser())){
+                $location.path('/payment');
+            }
+            else{
+                $location.path('/userdetails');
+                window.alert("Please Complete Your Profile");
+            }
+               
         }
         
         console.log("from cart component",$scope.cart);

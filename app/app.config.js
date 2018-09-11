@@ -16,6 +16,12 @@ angular.module("app").config(function($locationProvider,$routeProvider){
                 .when("/userdetails",{
                     template:"<user-detail></user-detail>",
                 })
+                .when("/payment",{
+                    template:"<payment-display></payment-display>",
+                })
+                .when("/myorder",{
+                    template:"<my-order></my-order>",
+                })
                 .otherwise('/');
             
     
