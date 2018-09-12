@@ -4,18 +4,19 @@
         <h4>Select Category</h4>
         <div>
             <div class="checkbox">
-                <label><input type="checkbox" ng-model="checkedElectronic" value="Electronic">Electronic</label>
+                <label><input type="checkbox" ng-model="$ctrl.selector[0]"  value="Electronic">Electronic</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" ng-model="checkedBooks" value="Books">Books</label>
+                <label><input type="checkbox" ng-model="$ctrl.selector[1]"  value="Books">Books</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" ng-model="checkedWear" value="Wear">Wear</label>
+                <label><input type="checkbox" ng-model="$ctrl.selector[2]"  value="Wear">Wear</label>
             </div>
         </div>     
     </div>
     <div class="col-sm-10">
-        <div ng-repeat="product in $ctrl.products">
+        <div ng-repeat="product in $ctrl.products | productCat: $ctrl.selector">
+            
             <product-card  details="product"></product-card>
         </div>    
     </div>

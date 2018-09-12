@@ -5,5 +5,4 @@ angular.module("product").component("productDisplay",{
             
             
         }]
-    
 });
