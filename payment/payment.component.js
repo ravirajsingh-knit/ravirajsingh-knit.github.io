@@ -37,12 +37,13 @@ angular.module("payment").component("paymentDisplay",{
                 AuthenticationService.cleanCart();
             }
             else{
-                $scope.userDetail.username="GUEST"
+                $scope.userDetail.username="Guest";
                 PaymentService.saveOrder($scope.userDetail,$scope.getUserCart);
                 
             }
             DataFactory.cleanCart();
             $location.path('/myorder');
+            window.alert("ORDERED PLACED");
         }
        
     }]
