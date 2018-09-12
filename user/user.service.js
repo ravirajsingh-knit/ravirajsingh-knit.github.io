@@ -1,13 +1,22 @@
 
-angular.module('user').service('UserService',['$rootScope', '$filter', '$q',function($rootScope, $filter, $q){
+angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$cookies',function($rootScope, $filter, $q,$cookies){
     var users=[];
-
+    var updateCookies=function(){
+        console.log("not working cookies");
+        if($cookies.getObject("userDetail")!=undefined)
+            users=$cookies.getObject("userDetail");
+        console.log("update users cookies",users);    
+    }
+    var saveUsers=function(){
+        $cookies.putObject("userDetail",users);
+    }
     this.verifyUser=function(username,password){
         for(var i=0;i<users.length;i++)
             if(users[i].username==username && users[i].password==password)
                 return true;
         return false;
     }
+    updateCookies();
 
     this.getUserDetail=function(username){
         for(var i=0;i<users.length;i++)
@@ -29,6 +38,7 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
                 users[i].cardDetails.expDate=info.expDate;
                 users[i].mobile=info.mobile;
                 users[i].address=info.address;
+                saveUsers();
                 return true;
             }
             return false;
@@ -62,6 +72,7 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
         user.cart=cart;
         console.log(user.cart);
         users.push(user);
+        saveUsers();
         return true;
         
     }
@@ -69,7 +80,7 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
         for(var i=0;i<users.length;i++)
             if(users[i].username==user)
                 users[i].cart=[];
-
+                saveUsers();
 
     }
     this.updateCart=function(cart){
@@ -78,11 +89,10 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
         for(var i=0;i<users.length;i++)
             if($rootScope.globals.currentUser.username==users[i].username)
             users[i].cart=cart;
+            saveUsers();    
     }
-    var updateCookies=function(){
-        $cookies.remove('userDetail');
-        $cookies.put('userDetail', cartItems);
-    }
+    
+    
     
 }]);        
 
