@@ -79,6 +79,10 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q',func
             if($rootScope.globals.currentUser.username==users[i].username)
             users[i].cart=cart;
     }
+    var updateCookies=function(){
+        $cookies.remove('userDetail');
+        $cookies.put('userDetail', cartItems);
+    }
     
 }]);        
 

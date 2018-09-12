@@ -18,6 +18,7 @@ angular.module('user')
 
             this.Login=function(username, password) {
                 if(UserService.verifyUser(username,password)){
+    
                     return true;
                 }
                 else
@@ -56,7 +57,6 @@ angular.module('user')
                 $http.defaults.headers.common.Authorization = 'Basic';
                 $rootScope.$emit("updateUser");
             }
-
 
 
             var Base64 = {

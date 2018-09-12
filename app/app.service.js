@@ -1,4 +1,4 @@
-angular.module("app").service('DataFactory',['$rootScope','UserService',function($rootScope,UserService){
+angular.module("app").service('DataFactory',['$rootScope','$cookies','UserService',function($rootScope,$cookies,UserService){
 
     var allProducts=[{
         "id":"7804493863",
@@ -272,7 +272,25 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
         },
         ];
 
-    var cart=[]    
+    var cart=[];
+    
+    var updateCookies=function(){
+        $cookies.putObject("cartDetail",cart);
+    }
+    
+    this.setCart=function(){
+        console.log("set cookies",$cookies.getObject("cartDetail"));
+        if($cookies.getObject("cartDetail")!=undefined){
+            cart=$cookies.getObject("cartDetail");
+            
+           // $rootScope.$emit("ChangeinCart");
+        }
+        
+        
+        
+    }
+    
+    console.log(cart);
     this.getAllProducts=function(){
         return allProducts;
     }
@@ -292,6 +310,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
             cart.push(item);
         }
         //console.log(cart);
+        updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
     this.getRefCart=function(){
@@ -299,6 +318,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
     }
 
     this.getCart=function(){
+        console.log("get cart",cart);
         var cartItems=[];
         for(var i=0;i<cart.length;i++){
             var item={};
@@ -318,9 +338,10 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
             }
         }
         //console.log(cartItems);
+        
         return cartItems;
     }
-
+    
     this.removeFromCart=function(id){
         for(var i=0;i<cart.length;i++){
             if(cart[i].id=id){
@@ -331,6 +352,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
         }
         console.log("service remove command");
         UserService.updateCart(cart);
+        updateCookies();
         $rootScope.$emit("ChangeinCart");
 
     }
@@ -348,11 +370,13 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
             
         }
         UserService.updateCart(cart);
+        updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
 
     this.cleanCart=function(){
         cart=[];
+        updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
 
@@ -365,6 +389,7 @@ angular.module("app").service('DataFactory',['$rootScope','UserService',function
         }
         console.log("service update command");
         UserService.updateCart(cart);
+        updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
    

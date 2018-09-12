@@ -1,5 +1,4 @@
 angular.module("product").filter("productCat",function() {
-
     return function(product, selector) {
         if(!selector)
             return product;
