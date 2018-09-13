@@ -40,21 +40,24 @@ angular.module("payment").component("paymentDisplay",{
         });
         $scope.onSubmit=function(userDetail){
             $scope.userDetail=userDetail;
+            console.log($scope.userDetail);
             $scope.mode=2;
         }
         $scope.placeOrder=function(){
             if($scope.currentUser!="Guest"){
-                PaymentService.saveOrder(AuthenticationService.getCurrentUserDetails(),$scope.getUserCart);
+                var id=PaymentService.saveOrder(AuthenticationService.getCurrentUserDetails(),$scope.getUserCart);
+               // console.log("Transaction id")
+                window.alert("Your Transaction ID is "+id+" .");
                 AuthenticationService.cleanCart();
             }
             else{
                 $scope.userDetail.username="Guest";
-                PaymentService.saveOrder($scope.userDetail,$scope.getUserCart);
+                var id=PaymentService.saveOrder($scope.userDetail,$scope.getUserCart);
+                window.alert("Your Transaction ID is "+id+" .");
                 
             }
             DataFactory.cleanCart();
             $location.path('/myorder');
-            window.alert("ORDERED PLACED");
         }
         $rootScope.$on("ChangeinCart",function(){
             $scope.getUserCart=DataFactory.getCart();

@@ -300,6 +300,8 @@ angular.module("app").service('DataFactory',['$rootScope','$cookies','UserServic
         for(var i=0;i<cart.length;i++){
             if(id==cart[i].id){
                 b=false;
+                if(cart[i].quantity+quantity>3)
+                    window.alert("We offer only max 3 quantity of a product");
                 cart[i].quantity=Math.min(cart[i].quantity+quantity,3);  
             }    
         }
