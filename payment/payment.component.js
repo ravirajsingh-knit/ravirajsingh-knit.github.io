@@ -9,6 +9,9 @@ angular.module("payment").component("paymentDisplay",{
         $scope.mode=1;
         if($scope.currentUser=="Guest")
             $scope.mode=0;
+        else
+            $scope.userDetail =angular.copy(AuthenticationService.getCurrentUserDetails());
+
 
         var getTotalAmount=function(){
             $scope.totalAmount=0;
@@ -53,6 +56,17 @@ angular.module("payment").component("paymentDisplay",{
             $location.path('/myorder');
             window.alert("ORDERED PLACED");
         }
+        $rootScope.$on("ChangeinCart",function(){
+            $scope.getUserCart=DataFactory.getCart();
+            if($scope.getUserCart.length==0){
+                $location.path("/");
+               // window.alert("Please Select Product first");
+            }
+                
+            getTotalAmount();
+            console.log("from cart component",$scope.getUserCart);
+           // $scope.$apply();
+        }); 
        
     }]
 });

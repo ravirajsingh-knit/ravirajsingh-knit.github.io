@@ -3,14 +3,14 @@
    
     <div class="btn-group btn-lg btn-block  row"  >
             <a  class="btn btn-default col-sm-4" ng-class="{ 'btn-primary' : mode<2}"><h5>User Information</h5></a>
-            <a  class="btn btn-default col-sm-4" ng-class="{ 'btn-primary' : mode<3 }" ><h5>Cart Information</h5></a>
-            <a  class="btn btn-default col-sm-4"  ng-class="{ 'btn-primary' : mode<4 }"><h5>Final Payment</h5></a>
+            <a  class="btn btn-default col-sm-4" ng-class="{ 'btn-primary' : mode<3 }" ><h5>Payment Information</h5></a>
+            <a  class="btn btn-default col-sm-4"  ng-class="{ 'btn-primary' : mode<4 }"><h5>Review</h5></a>
     </div>
     
 
     <div  ng-show="mode==1||mode==0">
         <div ng-show="mode==1">
-        <user-detail></user-detail>
+        <h5><user-detail></user-detail></h5>
         <span class="float-right"><a  class="btn btn-primary pull-right" ng-click="changeMode(2)"><h5>NEXT &#62;</h5></a></span>
         </div>
         <div ng-show="mode==0">
@@ -82,15 +82,23 @@
 
     </div>
     <div   ng-show="mode==2"  >
-        <div ng-repeat="item in getUserCart">
-                <cart-view details="item"></cart-view>
-                
-        </div>
-            <h2>TOTAL AMOUNT : {{totalAmount}}</h2>
+            <div class="container">
+                <h5><p> Holder Name:{{userDetail.firstName+" "+userDetail.lastname }}</h5></p>
+                <h5><p> Card Number :{{userDetail.cardDetails.cardNumber}}</p></h5>
+                <h5><p> Card Exp Date:{{userDetail.cardDetails.expDate| date}}</p></h5>
+            </div>
             <a  class="btn btn-primary" ng-click="changeMode(-1)"><h5>&#60; Back</h5></a>
             <span class="float-right"><a  class="btn btn-primary pull-right" ng-click="changeMode(3)"><h5>NEXT &#62;</h5></a></span>
     </div>
-    <div   ng-show="mode==3" >    
+    <div   ng-show="mode==3" >
+        <div>
+                <label> Name : </label><h5>{{userDetail.firstName+" "+userDetail.lastname }}</h5>
+                <label> Mobile No:  </label><h5>{{userDetail.mobile }}</h5>
+                <label> Address:  </label><h5>{{userDetail.address }}</h5>
+        </div>
+        <div ng-repeat="item in getUserCart">
+                        <cart-view details="item"></cart-view>
+        </div>      
         <a class ="btn btn-primary" ng-click="placeOrder()">PLACE ORDER</a>
         <a  class="btn btn-primary" ng-click="changeMode(2)"><h5>&#60; Back</h5></a>
     </div>
