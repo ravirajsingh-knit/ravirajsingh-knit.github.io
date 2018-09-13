@@ -8,7 +8,7 @@ angular.module("payment").component("paymentDisplay",{
         $scope.userDetail={}
         $scope.mode=1;
         if($scope.currentUser=="Guest")
-            $scope.mode=4;
+            $scope.mode=0;
 
         var getTotalAmount=function(){
             $scope.totalAmount=0;
@@ -19,7 +19,15 @@ angular.module("payment").component("paymentDisplay",{
         getTotalAmount();
         console.log("payment module");
         $scope.changeMode=function(id){
-            console.log(id);
+            if(id==-1 && $scope.currentUser=="Guest"){
+                $scope.mode=0;
+                return ;
+            }
+            else if(id==-1){
+                $scope.mode=1;
+                return ;
+            }
+                
             $scope.mode=id;
         }
         $rootScope.$on("ChangeinCart",function(){

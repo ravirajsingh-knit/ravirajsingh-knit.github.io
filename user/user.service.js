@@ -3,8 +3,12 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
     var users=[];
     var updateCookies=function(){
         console.log("not working cookies");
-        if($cookies.getObject("userDetail")!=undefined)
+        if($cookies.getObject("userDetail")!=undefined){
             users=$cookies.getObject("userDetail");
+            for(var i=0;i<users.length;i++)
+                users[i].cardDetails.expDate=new Date( users[i].cardDetails.expDate);
+        }
+           
         console.log("update users cookies",users);    
     }
     var saveUsers=function(){
@@ -34,10 +38,12 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
             if(users[i].username==info.username){
                 users[i].firstName=info.firstName;
                 users[i].lastName=info.lastName;
-                users[i].cardDetails.cardNumber=info.cardNumber;
-                users[i].cardDetails.expDate=info.expDate;
+                users[i].cardDetails.cardNumber=info.cardDetails.cardNumber;
+                users[i].cardDetails.expDate=info.cardDetails.expDate;
                 users[i].mobile=info.mobile;
                 users[i].address=info.address;
+                console.log("Information ",info);
+                console.log("users ",users[i]);
                 saveUsers();
                 return true;
             }
@@ -66,7 +72,7 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
         //user.cart=[];
         user.cardDetails={};
         user.cardDetails.cardNumber="";
-        user.cardDetails.expDate="";
+        user.cardDetails.expDate=new Date(00, 0, 00);;
         user.mobile="";
         user.address="";
         user.cart=cart;
@@ -90,17 +96,5 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
             if($rootScope.globals.currentUser.username==users[i].username)
             users[i].cart=cart;
             saveUsers();    
-    }
-    
-    
-    
+    } 
 }]);        
-
-
-
-
-
-        
-           
- 
-  

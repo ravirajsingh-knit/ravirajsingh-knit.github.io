@@ -25,7 +25,10 @@ angular.module("user").component("userDisplay",{
     }
 
     $scope.doGuest=function(){
-        $location.path("/payment");
+        if(DataFactory.getRefCart().length==0)
+            $location.path("/");
+        else    
+            $location.path("/payment");
     }
     this.login=function() {
         this.dataLoading = true;
