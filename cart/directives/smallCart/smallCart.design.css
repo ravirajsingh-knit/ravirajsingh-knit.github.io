@@ -3,3 +3,7 @@
     max-height: 400px;
     overflow-x: hidden;
 }
+
+.img-small{
+    height: 150px;
+}

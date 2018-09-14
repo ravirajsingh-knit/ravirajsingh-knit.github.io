@@ -284,10 +284,7 @@ angular.module("app").service('DataFactory',['$rootScope','$cookies','UserServic
             cart=$cookies.getObject("cartDetail");
             
            // $rootScope.$emit("ChangeinCart");
-        }
-        
-        
-        
+        }   
     }
     
     console.log(cart);
@@ -394,6 +391,4 @@ angular.module("app").service('DataFactory',['$rootScope','$cookies','UserServic
         updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
-   
-
 }]);
