@@ -5,6 +5,6 @@ angular.module("app",[
     "product",
     "cart",
     "user",
-    "payment"
+    "checkout"
 
 ]);

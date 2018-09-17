@@ -7,7 +7,7 @@ angular.module("app").config(function($locationProvider,$routeProvider){
                 .when("/",{
                     template:"<product-display></product-display>",
                 })
-                .when("/checkout",{
+                .when("/checkoutcart",{
                     template:"<cart-display></cart-display>",
                 })
                 .when("/user",{
@@ -16,8 +16,8 @@ angular.module("app").config(function($locationProvider,$routeProvider){
                 .when("/userdetails",{
                     template:"<user-detail></user-detail>",
                 })
-                .when("/payment",{
-                    template:"<payment-display></payment-display>",
+                .when("/checkout",{
+                    template:"<checkout-display></checkout-display>",
                 })
                 .when("/myorder",{
                     template:"<my-order></my-order>",

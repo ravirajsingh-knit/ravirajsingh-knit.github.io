@@ -1,0 +1,19 @@
+<div class="container">
+    <p>{{$scope.mode}}</p>
+    <div ng-hide="mode==1">
+        <form class="form-inline" ng-submit="searchTransaction(transactionId)">
+            <div class="form-group">
+                <label for="transactionId">TransactionID:</label>
+                <input type="number" class="form-control" id="transactionId" ng-model="transactionId">
+            </div>
+           
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <div ng-repeat="tran in orderDetails">
+        <p>Transaction Id:{{tran.transactionId }}</p>
+        <ul>
+            <li ng-repeat="item in tran.cartDetail">{{"Name: "+item.name+" Price:"+item.cost+" Quantity:"+item.quantity+" Total Amount:"+(item.cost*item.quantity)}} </li>
+        </ul>
+    </div>
+</div>

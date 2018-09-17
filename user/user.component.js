@@ -28,14 +28,14 @@ angular.module("user").component("userDisplay",{
         if(DataFactory.getRefCart().length==0)
             $location.path("/");
         else    
-            $location.path("/payment");
+            $location.path("/checkout");
     }
     this.login=function() {
         this.dataLoading = true;
         console.log(this.username, this.password);
         if(AuthenticationService.Login(this.username, this.password)){
             AuthenticationService.SetCredentials(this.username,this.password);
-            
+        
             if(UserService.checkProfile(this.username))
                 $location.path('/');
             else{

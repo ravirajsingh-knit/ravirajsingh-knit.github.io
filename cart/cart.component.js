@@ -15,7 +15,7 @@ angular.module("cart").component("cartDisplay",{
             if(AuthenticationService.getCurrentUser()=="Guest")
                 $location.path('/user');
             else if(UserService.checkProfile(AuthenticationService.getCurrentUser())){
-                $location.path('/payment');
+                $location.path('/checkout');
             }
             else{
                 $location.path('/userdetails');
