@@ -12,9 +12,20 @@ angular.module('user')
                     return null;
                 return UserService.getUserDetail($rootScope.globals.currentUser.username);
             }
-            var mergeCart=function(username){
-                CartService.mergeCart(UserService.getUserCart(username));
+
+            this.getCurrentUserTransactionIds=function(){
+                return UserService.getCurrentUserTransactionIds(this.getCurrentUser());
             }
+
+            this.pushTransactionId=function(transactionId){
+                UserService.pushTransactionId(this.getCurrentUser(),transactionId);
+            }
+
+            this.getCurrentUserCartId=function(){
+                return UserService.getCurrentUserCartId( this.getCurrentUser());
+            }
+            
+            
 
             this.Login=function(username, password) {
                 if(UserService.verifyUser(username,password)){
@@ -42,14 +53,14 @@ angular.module('user')
                 var cookieExp = new Date();
                 cookieExp.setDate(cookieExp.getDate() + 7);
                 $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
-                mergeCart(username);
+            //    mergeCart(username);
                 $rootScope.$emit("updateUser");
             }
             
             
-            this.cleanCart=function(){
-                UserService.cleanCart($rootScope.globals.currentUser.username);
-            }
+            // this.cleanCart=function(){
+            //     CartService.cleanCart($rootScope.globals.currentUser.username);
+            // }
 
             this.ClearCredentials=function ClearCredentials() {
                 $rootScope.globals = {};

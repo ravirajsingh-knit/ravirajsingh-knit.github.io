@@ -1,5 +1,5 @@
 angular.module("product")
-.controller("productCard",['CartService','$scope','$timeout',function(CartService,$scope,$timeout){
+.controller("productCard",['CartService','$scope','$timeout','AuthenticationService',function(CartService,$scope,$timeout,AuthenticationService){
     $scope.showMessage = true;
         
     $scope.getMessage = function() {
@@ -15,7 +15,7 @@ angular.module("product")
     $scope.addToCart=function(id,quantity){
         console.log(id,quantity);
         if(quantity>0){
-            CartService.addToCart(id,quantity);
+            CartService.addToCart(AuthenticationService.getCurrentUserCartId(),id,quantity);
             $scope.getMessage(); 
         }
     }

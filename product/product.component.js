@@ -1,7 +1,7 @@
 angular.module("product").component("productDisplay",{
     templateUrl:"product/productDisplay.template.html",
-    controller:['CartService','$scope','$rootScope',function(CartService,$scope,$rootScope){
-            this.products=CartService.getAllProducts();
+    controller:['ProductService','$scope','$rootScope',function(ProductService,$scope,$rootScope){
+            this.products=ProductService.getAllProduct();
             
             
         }]

@@ -1,4 +1,4 @@
-angular.module("cart").service('CartService',['$rootScope','$cookies','UserService','ProductService',function($rootScope,$cookies,UserService,ProductService){
+angular.module("cart").service('CartService',['$rootScope','$cookies','ProductService',function($rootScope,$cookies,ProductService){
 
     
 
@@ -14,100 +14,177 @@ angular.module("cart").service('CartService',['$rootScope','$cookies','UserServi
             cart=$cookies.getObject("cartDetail");
             
            // $rootScope.$emit("ChangeinCart");
+        }
+        else{
+            var item={}
+            item.cartId=7777;
+            item.cartItems=[];
+            cart.push(item);
         }   
     }
     
     console.log(cart);
-    this.getAllProducts=function(){
-        return ProductService.getAllProduct();
+    
+
+    this.createUserCart=function(){
+        var item={};
+        item.cartId=Math.floor((Math.random() * 100000) + 1);
+        item.cartItems=[];
+        cart.push(item);
+        return item.cartId;
     }
 
-    this.addToCart=function(id,quantity){
-        var b=true;
+
+    this.cartIsEmpty=function(cartId){
         for(var i=0;i<cart.length;i++){
-            if(id==cart[i].id){
-                b=false;
-                if(cart[i].quantity+quantity>3)
-                    window.alert("We offer only max 3 quantity of a product");
-                cart[i].quantity=Math.min(cart[i].quantity+quantity,3);  
-            }    
+            if(cart[i].cartId==cartId)
+                if(cart[i].cartItems.length==0)
+                    return false;
+                else
+                    return true;
         }
-        if(b){
-            var item={}
-            item.id=id;
-            item.quantity=quantity;
-            cart.push(item);
+    }
+
+    this.addToCart=function(cartId,id,quantity){
+        console.log(cartId);
+        for(var i=0;i<cart.length;i++){
+            
+            if(cartId==cart[i].cartId){
+                var flag=true;
+                for(var j=0;j<cart[i].cartItems.length;j++){
+                    if(id==cart[i].cartItems[j].id){
+                        flag=false;
+                        cart[i].cartItems[j].quantity=Math.min(quantity+cart[i].cartItems[j].quantity,3);
+                        break;
+                    }
+                }
+                if(flag){
+                    var item={};
+                    item.id=id;
+                    item.quantity=Math.min(quantity,3);
+                    cart[i].cartItems.push(item)
+                }
+                break;
+            }
         }
-        //console.log(cart);
         updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
-    this.getRefCart=function(){
-        return cart;
+
+    this.getRefCart=function(cartId){
+        for(var i=0;i<cart.length;i++)
+            if(cart[i].cartId==cartId)
+                return cart[i].cartItems;
+
     }
 
-    this.getCart=function(){
+    this.getCart=function(cartId){
+        console.log("cartId=",cartId);
         console.log("get cart",cart);
-        var cartItems=[];
+        var usercart=[];
         for(var i=0;i<cart.length;i++){
-            var item={};
-            item=ProductService.getProduct(cart[i].id);
-            item.quantity=cart[i].quantity.toString();
-            cartItems.push(item);
+            if(cartId==cart[i].cartId){
+                console.log("cart ",cartId,cart[i].cartId,cart[i].cartItems);
+                for(var j=0;j<cart[i].cartItems.length;j++){
+                    var item={};
+                    item=ProductService.getProduct(cart[i].cartItems[j].id);
+                    item.quantity=cart[i].cartItems[j].quantity.toString();
+                    usercart.push(item);
+                }
+            }
         }
-        //console.log(cartItems);
-        
-        return cartItems;
+        console.log(usercart);
+        return usercart;
     }
-    
-    this.removeFromCart=function(id){
+
+
+
+    this.removeFromCart=function(cartId,id){
         for(var i=0;i<cart.length;i++){
-            if(cart[i].id=id){
-                cart.splice(i,1);
-                $rootScope.$emit("ChangeinCart");
+            if(cartId==cart[i].id){
+                for(var j=0;j<cart[i].cartItems.length;j++){
+                    if(cart[i].cartItems[j].id==id){
+                        cart[i].cartItems.splice(j,1);
+                        $rootScope.$emit("ChangeinCart");
+                        break;
+                    }
+                }
                 break;
             }
         }
         console.log("service remove command");
-        UserService.updateCart(cart);
         updateCookies();
         $rootScope.$emit("ChangeinCart");
 
     }
-    this.mergeCart=function(userCart){
-        for(var i=0;i<userCart.length;i++){
-            var flag=true;
-            for(var j=0;j<cart.length;j++){
-                if(userCart[i].id==cart[j].id){
-                    cart[j].quantity=Math.min(userCart[i].quantity+cart[j].quantity,3);
-                    flag=false;
+
+    
+
+    this.mergeCart=function(cartId,userCart){
+        console.log("from merge=",cartId,userCart);
+        for(var i=0;i<cart.length;i++){
+            if(cartId==cart[i].cartId){
+                for(var j=0;j<userCart.length;j++){
+                    var flag=true;
+                    for(var k=0;k<cart[i].cartItems.length;k++){
+                        if(cart[i].cartItems[k].id==userCart[j].id){
+                            cart[i].cartItems[k].quantity=Math.min(userCart[j].quantity+cart[i].cartItems[k].quantity,3);
+                            flag=false;
+                            break;
+                        }
+                    }
+                    if(flag)
+                        cart[i].cartItems.push(userCart[j]);
+                    console.log("from merge=",cart[i].cartItems);    
                 }
             }
-            if(flag)
-                cart.push(userCart[i]);
-            
         }
-        UserService.updateCart(cart);
+
+
+      
+   //     UserService.updateCart(cart);
         updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
 
-    this.cleanCart=function(){
-        cart=[];
-        updateCookies();
-        $rootScope.$emit("ChangeinCart");
-    }
 
-    this.updateCart=function(id,quantity){
+    this.cleanCart=function(cartId){
+        
         for(var i=0;i<cart.length;i++){
-            if(cart[i].id==id){
-                cart[i].quantity=Math.min(3,quantity);
+            if(cartId==cart[i].cartId)
+                cart[i].cartItems=[];
+        }
+        updateCookies();
+        $rootScope.$emit("ChangeinCart");
+    }
+
+
+    this.updateCart=function(cartId,id,quantity){
+        
+        for(var i=0;i<cart;i++){
+            if(cart[i].cartId==cartId){
+                for(var j=0;j<cart[i].cartItems.length;j++){
+                    if(cart[i].cartItems[j].id==id){
+                        cart[i].cartItems[j].quantity=Math.min(3,quantity);
+                        break;
+                    }
+                }
                 break;
             }
         }
+        
         console.log("service update command");
-        UserService.updateCart(cart);
         updateCookies();
         $rootScope.$emit("ChangeinCart");
     }
+
+
+
+
+
+
+
+
+
+   
 }]);

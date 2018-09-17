@@ -15,41 +15,40 @@ angular.module('checkout').service('CheckoutService',['$rootScope', '$filter', '
     }
     setOrder();
 
-    this.saveOrder=function(user,cart){
+
+
+    this.saveOrder=function(cart){
         var order={};
         order.transactionId=Math.floor((Math.random() * 100000) + 1);
-        order.userDetail=user;
+        //order.userDetail=user;
         order.cartDetail=cart;
         orders.push(order);
         console.log(orders);
         updateCookies();
         return order.transactionId;
     }
-    this.getUserOrder=function(username){
+
+    this.getOrder=function(transactionIds){
         var outputs=[];
-        for(var i=0;i<orders.length;i++){
-            var output={};
-            if(username==orders[i].userDetail.username){
-                output.transactionId=orders[i].transactionId;
-                output.cartDetail=orders[i].cartDetail;
-                outputs.push(output);
-            }
-        }
-            
-            return outputs;
-    }
-    this.getOrder=function(transactionId){
-        var output={};
         console.log(orders);
-        console.log(transactionId)
-        for(var i=0;i<orders.length;i++){
-            if(transactionId==orders[i].transactionId){
-                output.transactionId=orders[i].transactionId;
-                output.cartDetail=orders[i].cartDetail;
-               return output;
+        console.log(transactionIds)
+        for(var i=0;i<transactionIds.length;i++){
+            var output={};
+            for(var j=0;j<orders.length;j++){
+                console.log(transactionIds[i],orders[j].transactionId)
+                if(transactionIds[i]==orders[j].transactionId){
+                    output.transactionId=orders[j].transactionId;
+                    output.cartDetail=orders[j].cartDetail;
+                    console.log("output=",output);
+                    outputs.push(output);
+                    break;
+                }
             }
         }
-        return null;
+
+
+        
+        return outputs;
     }
 
 }]);

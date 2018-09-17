@@ -1,14 +1,40 @@
 <div class="container">
     <p>{{$scope.mode}}</p>
     <div ng-hide="mode==1">
-        <form class="form-inline" ng-submit="searchTransaction(transactionId)">
+        <!-- <form class="form-inline" ng-submit="searchTransaction(transactionId)">
             <div class="form-group">
                 <label for="transactionId">TransactionID:</label>
                 <input type="number" class="form-control" id="transactionId" ng-model="transactionId">
             </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control" id="email" ng-model="email">
+            </div>
            
             <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+        </form> -->
+
+        <form name="form" ng-submit="searchTransaction(transactionId,email)" class="form-inline" role="form">
+    
+            <div class="form-group" ng-class="{ 'has-error': form.transactionId.$dirty && form.transactionId.$error.required }">
+                    <label for="transactionId" >TransactionID :</label>
+                    <div>
+                      <input type="number" name="transactionId" id="transactionId" class="form-control" ng-model="transactionId"  required>
+                      <span ng-show="form.transactionId.$dirty && form.transactionId.$error.required" class="help-block">transactionId is required</span>
+                    </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                <label for="Email" >Email :</label>
+                <div>
+                  <input type="email" name="email" id="email" class="form-control" ng-model="email"  required>
+                  <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                  <span ng-show="form.email.$error.email" class="help-block">Not VALID Email</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+
     </div>
     <div ng-repeat="tran in orderDetails">
         <p>Transaction Id:{{tran.transactionId }}</p>

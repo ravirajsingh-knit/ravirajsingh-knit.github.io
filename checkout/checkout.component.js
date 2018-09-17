@@ -3,7 +3,7 @@ angular.module("checkout").component("checkoutDisplay",{
     controller:['AuthenticationService','CartService','CheckoutService','$scope','$rootScope','$location',function(AuthenticationService,CartService,CheckoutService,$scope,$rootScope,$location){
         $scope.guestUser={};
         $scope.currentUser=AuthenticationService.getCurrentUser();
-        $scope.getUserCart=CartService.getCart();
+        $scope.getUserCart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
         $scope.totalAmount=0;
         $scope.userDetail={}
         $scope.mode=1;
@@ -34,7 +34,7 @@ angular.module("checkout").component("checkoutDisplay",{
             $scope.mode=id;
         }
         $rootScope.$on("ChangeinCart",function(){
-            $scope.cart=CartService.getCart();
+            $scope.cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
             getTotalAmount();
             console.log("from cart component",$scope.cart);
         });
@@ -44,23 +44,15 @@ angular.module("checkout").component("checkoutDisplay",{
             $scope.mode=2;
         }
         $scope.placeOrder=function(){
-            if($scope.currentUser!="Guest"){
-                var id=CheckoutService.saveOrder(AuthenticationService.getCurrentUserDetails(),$scope.getUserCart);
-               // console.log("Transaction id")
-                window.alert("Your Transaction ID is "+id+" .");
-                AuthenticationService.cleanCart();
-            }
-            else{
-                $scope.userDetail.username="Guest";
-                var id=CheckoutService.saveOrder($scope.userDetail,$scope.getUserCart);
-                window.alert("Your Transaction ID is "+id+" .");
-                
-            }
-            CartService.cleanCart();
+            var id=CheckoutService.saveOrder($scope.getUserCart);
+            // console.log("Transaction id")
+            AuthenticationService.pushTransactionId(id);
+            window.alert("Your Transaction ID is "+id+" .");
+            CartService.cleanCart(AuthenticationService.getCurrentUserCartId());
             $location.path('/myorder');
         }
         $rootScope.$on("ChangeinCart",function(){
-            $scope.getUserCart=CartService.getCart();
+            $scope.getUserCart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
             if($scope.getUserCart.length==0){
                 $location.path("/");
                // window.alert("Please Select Product first");

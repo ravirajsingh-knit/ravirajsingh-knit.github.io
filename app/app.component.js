@@ -19,7 +19,7 @@ angular.module("app").component('headerComponent',{
         changeMode();
         $scope.Logout=function(){
             AuthenticationService.ClearCredentials();
-            CartService.cleanCart();
+            CartService.cleanCart(AuthenticationService.getCurrentUserCartId());
             $location.path('/');
         }
         $scope.userDetails=function(){

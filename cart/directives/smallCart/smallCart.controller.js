@@ -1,7 +1,7 @@
 angular.module("cart")
-.controller("smallCart",['CartService','$scope','$rootScope',function(CartService,$scope,$rootScope){
+.controller("smallCart",['CartService','$scope','$rootScope','AuthenticationService',function(CartService,$scope,$rootScope,AuthenticationService){
     //this.type="check";
-    $scope.Cart=CartService.getCart();
+    $scope.Cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
     $scope.totalQuantity=0;
     $scope.totalAmount=0;  
     for(var i=0;i<$scope.Cart.length;i++){
@@ -12,7 +12,8 @@ angular.module("cart")
     
   
     $rootScope.$on("ChangeinCart",function(){
-        $scope.Cart=CartService.getCart();
+        console.log("Change in cart",CartService.getCart(AuthenticationService.getCurrentUserCartId()));
+        $scope.Cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
         $scope.totalAmount=0;
         $scope.totalQuantity=0;
         for(var i=0;i<$scope.Cart.length;i++){

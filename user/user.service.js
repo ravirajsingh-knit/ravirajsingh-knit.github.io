@@ -1,10 +1,11 @@
 
-angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$cookies',function($rootScope, $filter, $q,$cookies){
+angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$cookies','CartService',function($rootScope, $filter, $q,$cookies,CartService){
     var users=[];
     var updateCookies=function(){
         console.log("not working cookies");
         if($cookies.getObject("userDetail")!=undefined){
             users=$cookies.getObject("userDetail");
+            console.log("users=",users);
             for(var i=0;i<users.length;i++)
                 users[i].cardDetails.expDate=new Date( users[i].cardDetails.expDate);
         }
@@ -31,8 +32,37 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
     this.getUserCart=function(username){
         for(var i=0;i<users.length;i++)
             if(users[i].username=username)
-                return users[i].cart;
+                return users[i].cartId;
     }
+
+    this.pushTransactionId=function(username,transactionId){
+        for(var i=0;i<users.length;i++){
+            if(users[i].username==username){
+                users[i].transactionIds.push(transactionId);
+                return ;
+            }
+                
+        }
+    }
+    this.getCurrentUserTransactionIds=function(username){
+        console.log(username);
+
+        for(var i=0;i<users.length;i++){
+            if(users[i].username==username)
+                return users[i].transactionIds;
+        }
+    }
+
+    this.getCurrentUserCartId=function(username){
+        for(var i=0;i<users.length;i++){
+            if(users[i].username==username){
+                return users[i].cartId
+            }
+        }
+        if(username=="Guest")
+            return 7777;
+    }
+
     this.updateUserDetail=function(info){
         for(var i=0;i<users.length;i++)
             if(users[i].username==info.username){
@@ -64,7 +94,7 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
 
         return true;
     }
-    this.Create=function(user,cart) {
+    this.Create=function(user) {
         console.log(user);
         for(var i=0;i<users.length;i++)
             if(users[i].username==user.username)
@@ -75,26 +105,28 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
         user.cardDetails.expDate=new Date(00, 0, 00);;
         user.mobile="";
         user.address="";
-        user.cart=cart;
+        user.cartId=CartService.createUserCart();
+        //CartService.mergeCart(user.cartId,cart);
+        user.transactionIds=[];
         console.log(user.cart);
         users.push(user);
         saveUsers();
         return true;
         
     }
-    this.cleanCart=function(user){
-        for(var i=0;i<users.length;i++)
-            if(users[i].username==user)
-                users[i].cart=[];
-                saveUsers();
+    // this.cleanCart=function(user){
+    //     for(var i=0;i<users.length;i++)
+    //         if(users[i].username==user)
+    //             users[i].cartId=[];
+    //             saveUsers();
 
-    }
-    this.updateCart=function(cart){
-        if($rootScope.globals==undefined||$rootScope.globals.currentUser==undefined||$rootScope.globals.currentUser.username==undefined)
-            return;
-        for(var i=0;i<users.length;i++)
-            if($rootScope.globals.currentUser.username==users[i].username)
-            users[i].cart=cart;
-            saveUsers();    
-    } 
+    // }
+    // this.updateCart=function(cart){
+    //     if($rootScope.globals==undefined||$rootScope.globals.currentUser==undefined||$rootScope.globals.currentUser.username==undefined)
+    //         return;
+    //     for(var i=0;i<users.length;i++)
+    //         if($rootScope.globals.currentUser.username==users[i].username)
+    //         users[i].cart=cart;
+    //         saveUsers();    
+    // } 
 }]);        

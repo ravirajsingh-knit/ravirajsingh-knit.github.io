@@ -25,7 +25,7 @@ angular.module("user").component("userDisplay",{
     }
 
     $scope.doGuest=function(){
-        if(CartService.getRefCart().length==0)
+        if(CartService.cartIsEmpty(AuthenticationService.getCurrentUserCartId())==0)
             $location.path("/");
         else    
             $location.path("/checkout");
@@ -33,7 +33,11 @@ angular.module("user").component("userDisplay",{
     this.login=function() {
         this.dataLoading = true;
         console.log(this.username, this.password);
+        var userGuest=angular.copy(AuthenticationService.getCurrentUserCartId());
+        var userCart=angular.copy(CartService.getRefCart(AuthenticationService.getCurrentUserCartId()));
+        console.log("userCart=",userCart);
         if(AuthenticationService.Login(this.username, this.password)){
+            
             AuthenticationService.SetCredentials(this.username,this.password);
         
             if(UserService.checkProfile(this.username))
@@ -46,7 +50,10 @@ angular.module("user").component("userDisplay",{
             this.password=undefined;
             $scope.form1.$setPristine();
             $scope.getMessage("Login Successfull")
-                
+            
+            CartService.mergeCart(AuthenticationService.getCurrentUserCartId(),userCart);
+            console.log("userGuest=",userGuest);
+            CartService.cleanCart(userGuest);
             
         }
         else
@@ -61,8 +68,8 @@ angular.module("user").component("userDisplay",{
             
             this.dataLoading = true;
             console.log(this.user);
-
-            if(UserService.Create(this.user,CartService.getRefCart())){
+            
+            if(UserService.Create(this.user)){
                 $scope.getMessage("User is Created");
                 this.user=undefined;
                 $scope.form.$setPristine();

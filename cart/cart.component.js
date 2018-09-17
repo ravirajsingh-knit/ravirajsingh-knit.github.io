@@ -1,7 +1,7 @@
 angular.module("cart").component("cartDisplay",{
     templateUrl:"cart/cart.template.html",
     controller:['CartService','AuthenticationService','UserService','$location','$rootScope','$scope',function(CartService,AuthenticationService,UserService,$location,$rootScope,$scope){
-        $scope.cart=angular.copy(CartService.getCart());
+        $scope.cart=angular.copy(CartService.getCart(AuthenticationService.getCurrentUserCartId()));
         $scope.totalAmount=0;
         var getTotalAmount=function(){
             $scope.totalAmount=0;
@@ -26,7 +26,7 @@ angular.module("cart").component("cartDisplay",{
         
         console.log("from cart component",$scope.cart);
             $rootScope.$on("ChangeinCart",function(){
-                $scope.cart=CartService.getCart();
+                $scope.cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
                 getTotalAmount();
                 console.log("from cart component",$scope.cart);
                // $scope.$apply();
