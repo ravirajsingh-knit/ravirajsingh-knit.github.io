@@ -1,13 +1,13 @@
-angular.module("cart").controller("cartView",['$scope','DataFactory',
-    function($scope,DataFactory){
+angular.module("cart").controller("cartView",['$scope','CartService',
+    function($scope,CartService){
 
         $scope.removeFromCart=function(id){
             console.log("local controller remove command");
-            DataFactory.removeFromCart(id);
+            CartService.removeFromCart(id);
         }
         $scope.updateCart=function(id,quantity){
             console.log("service update command");
-            DataFactory.updateCart(id,quantity);
+            CartService.updateCart(id,quantity);
         }
 
     }

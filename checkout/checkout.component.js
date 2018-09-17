@@ -1,9 +1,9 @@
 angular.module("checkout").component("checkoutDisplay",{
     templateUrl:"checkout/checkout.template.html",
-    controller:['AuthenticationService','DataFactory','CheckoutService','$scope','$rootScope','$location',function(AuthenticationService,DataFactory,CheckoutService,$scope,$rootScope,$location){
+    controller:['AuthenticationService','CartService','CheckoutService','$scope','$rootScope','$location',function(AuthenticationService,CartService,CheckoutService,$scope,$rootScope,$location){
         $scope.guestUser={};
         $scope.currentUser=AuthenticationService.getCurrentUser();
-        $scope.getUserCart=DataFactory.getCart();
+        $scope.getUserCart=CartService.getCart();
         $scope.totalAmount=0;
         $scope.userDetail={}
         $scope.mode=1;
@@ -34,7 +34,7 @@ angular.module("checkout").component("checkoutDisplay",{
             $scope.mode=id;
         }
         $rootScope.$on("ChangeinCart",function(){
-            $scope.cart=DataFactory.getCart();
+            $scope.cart=CartService.getCart();
             getTotalAmount();
             console.log("from cart component",$scope.cart);
         });
@@ -56,11 +56,11 @@ angular.module("checkout").component("checkoutDisplay",{
                 window.alert("Your Transaction ID is "+id+" .");
                 
             }
-            DataFactory.cleanCart();
+            CartService.cleanCart();
             $location.path('/myorder');
         }
         $rootScope.$on("ChangeinCart",function(){
-            $scope.getUserCart=DataFactory.getCart();
+            $scope.getUserCart=CartService.getCart();
             if($scope.getUserCart.length==0){
                 $location.path("/");
                // window.alert("Please Select Product first");

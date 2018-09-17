@@ -1,5 +1,5 @@
 angular.module('user')
-        .service('AuthenticationService',['$http', '$cookies', '$rootScope', 'UserService','DataFactory',function($http, $cookies, $rootScope,UserService,DataFactory ){
+        .service('AuthenticationService',['$http', '$cookies', '$rootScope', 'UserService','CartService',function($http, $cookies, $rootScope,UserService,CartService ){
           
             
             this.getCurrentUser=function(){
@@ -13,7 +13,7 @@ angular.module('user')
                 return UserService.getUserDetail($rootScope.globals.currentUser.username);
             }
             var mergeCart=function(username){
-                DataFactory.mergeCart(UserService.getUserCart(username));
+                CartService.mergeCart(UserService.getUserCart(username));
             }
 
             this.Login=function(username, password) {

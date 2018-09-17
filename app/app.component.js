@@ -1,8 +1,8 @@
 angular.module("app").component('headerComponent',{
     templateUrl:"app/app.template.html",
 
-    controller:[ 'DataFactory','$location','$scope','$rootScope','AuthenticationService',
-    function(DataFactory,$location,$scope,$rootScope,AuthenticationService){
+    controller:[ 'CartService','$location','$scope','$rootScope','AuthenticationService',
+    function(CartService,$location,$scope,$rootScope,AuthenticationService){
         $scope.userName=AuthenticationService.getCurrentUser();
         // $rootScope.$on("updateCart",function(){
         //     console.log("Received boroad")
@@ -19,7 +19,7 @@ angular.module("app").component('headerComponent',{
         changeMode();
         $scope.Logout=function(){
             AuthenticationService.ClearCredentials();
-            DataFactory.cleanCart();
+            CartService.cleanCart();
             $location.path('/');
         }
         $scope.userDetails=function(){

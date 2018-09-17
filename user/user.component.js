@@ -1,6 +1,6 @@
 angular.module("user").component("userDisplay",{
     templateUrl:"user/user.template.html",
-    controller:['DataFactory','UserService','$scope','$timeout','AuthenticationService','$location',function(DataFactory,UserService,$scope,$timeout,AuthenticationService,$location){
+    controller:['CartService','UserService','$scope','$timeout','AuthenticationService','$location',function(CartService,UserService,$scope,$timeout,AuthenticationService,$location){
     $scope.showMessage = "";
     $scope.mode=0;
     $scope.changeMode=function(id){
@@ -25,7 +25,7 @@ angular.module("user").component("userDisplay",{
     }
 
     $scope.doGuest=function(){
-        if(DataFactory.getRefCart().length==0)
+        if(CartService.getRefCart().length==0)
             $location.path("/");
         else    
             $location.path("/checkout");
@@ -62,7 +62,7 @@ angular.module("user").component("userDisplay",{
             this.dataLoading = true;
             console.log(this.user);
 
-            if(UserService.Create(this.user,DataFactory.getRefCart())){
+            if(UserService.Create(this.user,CartService.getRefCart())){
                 $scope.getMessage("User is Created");
                 this.user=undefined;
                 $scope.form.$setPristine();

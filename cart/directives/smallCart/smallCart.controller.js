@@ -1,7 +1,7 @@
 angular.module("cart")
-.controller("smallCart",['DataFactory','$scope','$rootScope',function(DataFactory,$scope,$rootScope){
+.controller("smallCart",['CartService','$scope','$rootScope',function(CartService,$scope,$rootScope){
     //this.type="check";
-    $scope.Cart=DataFactory.getCart();
+    $scope.Cart=CartService.getCart();
     $scope.totalQuantity=0;
     $scope.totalAmount=0;  
     for(var i=0;i<$scope.Cart.length;i++){
@@ -12,7 +12,7 @@ angular.module("cart")
     
   
     $rootScope.$on("ChangeinCart",function(){
-        $scope.Cart=DataFactory.getCart();
+        $scope.Cart=CartService.getCart();
         $scope.totalAmount=0;
         $scope.totalQuantity=0;
         for(var i=0;i<$scope.Cart.length;i++){
@@ -20,7 +20,7 @@ angular.module("cart")
             $scope.totalQuantity+=$scope.Cart[i].quantity*1;
         }
     });    
-    //DataFactory.handelChange($scope,updateCart());  
+    //CartService.handelChange($scope,updateCart());  
 
 
 

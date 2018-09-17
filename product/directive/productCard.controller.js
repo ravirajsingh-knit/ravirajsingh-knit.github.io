@@ -1,5 +1,5 @@
 angular.module("product")
-.controller("productCard",['DataFactory','$scope','$timeout',function(DataFactory,$scope,$timeout){
+.controller("productCard",['CartService','$scope','$timeout',function(CartService,$scope,$timeout){
     $scope.showMessage = true;
         
     $scope.getMessage = function() {
@@ -15,7 +15,7 @@ angular.module("product")
     $scope.addToCart=function(id,quantity){
         console.log(id,quantity);
         if(quantity>0){
-            DataFactory.addToCart(id,quantity);
+            CartService.addToCart(id,quantity);
             $scope.getMessage(); 
         }
     }
