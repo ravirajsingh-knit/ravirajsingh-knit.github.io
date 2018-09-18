@@ -33,11 +33,11 @@ angular.module("checkout").component("checkoutDisplay",{
                 
             $scope.mode=id;
         }
-        $rootScope.$on("ChangeinCart",function(){
-            $scope.cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
-            getTotalAmount();
-            console.log("from cart component",$scope.cart);
-        });
+        // $rootScope.$on("ChangeinCart",function(){
+        //     $scope.cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
+        //     getTotalAmount();
+        //     console.log("from cart component",$scope.cart);
+        // });
         $scope.onSubmit=function(userDetail){
             $scope.userDetail=userDetail;
             console.log($scope.userDetail);
@@ -47,9 +47,10 @@ angular.module("checkout").component("checkoutDisplay",{
             var id=CheckoutService.saveOrder($scope.getUserCart);
             console.log("Transaction id from place order=",id);
             AuthenticationService.pushTransactionId(id);
-            window.alert("Your Transaction ID is "+id+" .");
+            $rootScope.lastOrderId=id;
+           // window.alert("Your Transaction ID is "+id+" .");
             CartService.cleanCart(AuthenticationService.getCurrentUserCartId());
-            $location.path('/myorder');
+            $location.path('/placedorder');
         }
         $rootScope.$on("ChangeinCart",function(){
             $scope.getUserCart=CartService.getCart(AuthenticationService.getCurrentUserCartId());

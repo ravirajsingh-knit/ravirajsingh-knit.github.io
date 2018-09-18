@@ -1,0 +1,14 @@
+<div class="container">
+    <h5>Your Order has been Placed.</h5>
+    <h6>Your Transaction ID  is {{transactionId}}.</h6>
+    <h6>Total Amount Paid {{totalCost}}</h6>
+    <ul ng-repeat="cart in transactionDetails.cartDetail">
+        <li>NAME:{{cart.name}}</li>
+        <ul>
+            <li>QUANTITY:{{cart.quantity}}</li>
+            <li>COST:{{cart.cost}}</li>
+            <li>Total Amount:{{cart.quantity*cart.cost}}</li>
+        </ul>
+        
+    </ul>
+</div>

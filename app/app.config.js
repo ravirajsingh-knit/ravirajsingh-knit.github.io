@@ -19,6 +19,9 @@ angular.module("app").config(function($locationProvider,$routeProvider){
                 .when("/checkout",{
                     template:"<checkout-display></checkout-display>",
                 })
+                .when("/placedorder",{
+                    template:"<placed-order></placed-order>",
+                })
                 .when("/myorder",{
                     template:"<my-order></my-order>",
                 })
