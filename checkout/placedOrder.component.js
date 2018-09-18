@@ -9,5 +9,13 @@ angular.module("checkout").component("placedOrder",{
         $scope.totalCost=0;
         for(var i=0;i< $scope.transactionDetails.cartDetail.length;i++)
             $scope.totalCost+=$scope.transactionDetails.cartDetail[i].cost*$scope.transactionDetails.cartDetail[i].quantity;
+        
+            
+        $scope.goToMyOrder=function(){
+            $location.path("/myorder");
+        }
+        $scope.goToShop=function(){
+            $location.path("/");
+        }   
     }]
 });

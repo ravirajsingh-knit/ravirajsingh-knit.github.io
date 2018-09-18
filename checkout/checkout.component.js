@@ -33,11 +33,8 @@ angular.module("checkout").component("checkoutDisplay",{
                 
             $scope.mode=id;
         }
-        // $rootScope.$on("ChangeinCart",function(){
-        //     $scope.cart=CartService.getCart(AuthenticationService.getCurrentUserCartId());
-        //     getTotalAmount();
-        //     console.log("from cart component",$scope.cart);
-        // });
+     
+        
         $scope.onSubmit=function(userDetail){
             $scope.userDetail=userDetail;
             console.log($scope.userDetail);
