@@ -1,5 +1,5 @@
 angular.module("checkout").controller("myOrder",['CheckoutService','AuthenticationService','$scope',function(CheckoutService,AuthenticationService,$scope){
-    console.log("my trans ",AuthenticationService.getCurrentUser());
+    //console.log("my trans ",AuthenticationService.getCurrentUser());
     $scope.mode=0;
     if(AuthenticationService.getCurrentUser()!="Guest"){
         $scope.orderDetails=CheckoutService.getOrder(AuthenticationService.getCurrentUserTransactionIds());
@@ -11,7 +11,7 @@ angular.module("checkout").controller("myOrder",['CheckoutService','Authenticati
     }
     console.log($scope.orderDetails)
     $scope.searchTransaction=function(transactionId,email){
-        var order=CheckoutService.getOrder(transactionId);
+        var order=CheckoutService.getOrderFromId(transactionId);
         if(order==null)
             return;
         for(var i=0;i<$scope.orderDetails.length;i++){
@@ -19,7 +19,7 @@ angular.module("checkout").controller("myOrder",['CheckoutService','Authenticati
             return;
         }
         $scope.orderDetails.push(order);
-        console.log( $scope.orderDetails)
+        console.log( $scope.orderDetails,order)
     }
         
     

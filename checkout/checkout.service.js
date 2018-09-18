@@ -6,11 +6,8 @@ angular.module('checkout').service('CheckoutService',['$rootScope', '$filter', '
 
 
     var setOrder=function(){
-       // console.log("set cookies",$cookies.getObject("cartDetail"));
         if($cookies.getObject("orderDetail")!=undefined){
             orders=$cookies.getObject("orderDetail");
-            
-           // $rootScope.$emit("ChangeinCart");
         }    
     }
     setOrder();
@@ -20,7 +17,6 @@ angular.module('checkout').service('CheckoutService',['$rootScope', '$filter', '
     this.saveOrder=function(cart){
         var order={};
         order.transactionId=Math.floor((Math.random() * 100000) + 1);
-        //order.userDetail=user;
         order.cartDetail=cart;
         orders.push(order);
         console.log(orders);
@@ -28,6 +24,13 @@ angular.module('checkout').service('CheckoutService',['$rootScope', '$filter', '
         return order.transactionId;
     }
 
+    this.getOrderFromId=function(transactionId){
+        for(var i=0;i<orders.length;i++){
+            if(transactionId==orders[i].transactionId)
+                return orders[i];
+        }
+        return null;
+    }
     this.getOrder=function(transactionIds){
         var outputs=[];
         console.log(orders);

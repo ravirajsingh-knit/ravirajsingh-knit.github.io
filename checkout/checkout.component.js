@@ -45,7 +45,7 @@ angular.module("checkout").component("checkoutDisplay",{
         }
         $scope.placeOrder=function(){
             var id=CheckoutService.saveOrder($scope.getUserCart);
-            // console.log("Transaction id")
+            console.log("Transaction id from place order=",id);
             AuthenticationService.pushTransactionId(id);
             window.alert("Your Transaction ID is "+id+" .");
             CartService.cleanCart(AuthenticationService.getCurrentUserCartId());

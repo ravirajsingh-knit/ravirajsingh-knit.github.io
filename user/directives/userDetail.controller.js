@@ -1,10 +1,7 @@
 angular.module("user")
 .controller("userDetail",['UserService','AuthenticationService','$scope','$location',function(UserService,AuthenticationService,$scope,$location){
     $scope.userDetail=angular.copy(AuthenticationService.getCurrentUserDetails());
-    $scope.editMode=false;
-    //if($scope.userDetail==null)
-       // $location.path('/');
-    
+    $scope.editMode=false; 
     $scope.changeMode=function(){
         $scope.editMode=true;
     } 

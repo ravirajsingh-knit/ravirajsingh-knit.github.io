@@ -39,17 +39,22 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
         for(var i=0;i<users.length;i++){
             if(users[i].username==username){
                 users[i].transactionIds.push(transactionId);
+                console.log("push tan",users);
+                saveUsers();
                 return ;
             }
                 
         }
     }
     this.getCurrentUserTransactionIds=function(username){
-        console.log(username);
+        console.log(users);
 
         for(var i=0;i<users.length;i++){
-            if(users[i].username==username)
+            if(users[i].username==username){
+                console.log(username,users[i].transactionIds);
                 return users[i].transactionIds;
+            }
+                
         }
     }
 
@@ -106,7 +111,7 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
         user.mobile="";
         user.address="";
         user.cartId=CartService.createUserCart();
-        //CartService.mergeCart(user.cartId,cart);
+        
         user.transactionIds=[];
         console.log(user.cart);
         users.push(user);
@@ -114,19 +119,5 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
         return true;
         
     }
-    // this.cleanCart=function(user){
-    //     for(var i=0;i<users.length;i++)
-    //         if(users[i].username==user)
-    //             users[i].cartId=[];
-    //             saveUsers();
-
-    // }
-    // this.updateCart=function(cart){
-    //     if($rootScope.globals==undefined||$rootScope.globals.currentUser==undefined||$rootScope.globals.currentUser.username==undefined)
-    //         return;
-    //     for(var i=0;i<users.length;i++)
-    //         if($rootScope.globals.currentUser.username==users[i].username)
-    //         users[i].cart=cart;
-    //         saveUsers();    
-    // } 
+   
 }]);        
