@@ -76,7 +76,10 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
                 users[i].cardDetails.cardNumber=info.cardDetails.cardNumber;
                 users[i].cardDetails.expDate=info.cardDetails.expDate;
                 users[i].mobile=info.mobile;
-                users[i].address=info.address;
+                users[i].address.location=info.address.location;
+                users[i].address.city=info.address.city;
+                users[i].address.country=info.address.country;
+                users[i].address.zip=info.address.zip;
                 console.log("Information ",info);
                 console.log("users ",users[i]);
                 saveUsers();
@@ -109,7 +112,11 @@ angular.module('user').service('UserService',['$rootScope', '$filter', '$q','$co
         user.cardDetails.cardNumber="";
         user.cardDetails.expDate=new Date(00, 0, 00);;
         user.mobile="";
-        user.address="";
+        user.address={};
+        user.address.location="";
+        user.address.city="";
+        user.address.country="";
+        user.address.zip="";
         user.cartId=CartService.createUserCart();
         
         user.transactionIds=[];
